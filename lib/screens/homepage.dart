@@ -70,6 +70,9 @@ class _HomePageState extends State<HomePage> {
                       image: AssetImage(logo),
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   CircularProgressIndicator(),
                   SizedBox(
                     height: 20,

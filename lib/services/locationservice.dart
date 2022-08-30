@@ -36,8 +36,8 @@ Future<void> getlocation() async {
       Fluttertoast.showToast(msg: "Permission denied");
     }
   }
-  Fluttertoast.showToast(msg: locationData!.latitude.toString());
-  SharedPrefService.setlattosharedpref(locationData.latitude.toString());
+  // Fluttertoast.showToast(msg: locationData!.latitude.toString());
+  SharedPrefService.setlattosharedpref(locationData!.latitude.toString());
   SharedPrefService.setlongitosharedpref(locationData.longitude.toString());
 
   log("Latitude in shared pref ${SharedPrefService.getlat()!}");

@@ -1,40 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:weatherapp/constants.dart';
 
 class SevenDayCard extends StatelessWidget {
-  const SevenDayCard({Key? key}) : super(key: key);
-
+  SevenDayCard(
+      {Key? key,
+      required this.date,
+      required this.day,
+      required this.iconfromapi,
+      required this.temp})
+      : super(key: key);
+  String day;
+  String date;
+  String temp;
+  String iconfromapi;
+  String icon = rainclouds;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Text(
-          'day',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 15,
+    if (iconfromapi == "Thenderstorm") {
+      icon = lightcloud;
+    } else if (iconfromapi == "Rain") {
+      icon = rainclouds;
+    } else if (iconfromapi == "Clear") {
+      icon = sun;
+    } else if (iconfromapi == "Clouds") {
+      icon = cloudwithsun;
+    }
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.16,
+      width: MediaQuery.of(context).size.width * 0.16,
+      child: Column(
+        children: [
+          Text(
+            day,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 15,
+            ),
           ),
-        ),
-        const Text(
-          'Temps',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 9,
+          Text(
+            date,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 9,
+            ),
           ),
-        ),
-        Image.asset(
-          'lib/images/AQI.png',
-          height: 50,
-          width: 50,
-        ),
-        const Text(
-          "temp3",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14,
+          Image.asset(
+            icon,
+            height: 50,
+            width: 50,
           ),
-        ),
-      ],
+          Text(
+            temp,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
