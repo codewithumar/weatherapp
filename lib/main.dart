@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:weatherapp/screens/weatherscreen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weatherapp/screens/homepage.dart';
+import 'package:weatherapp/services/sharedprefservice.dart';
 
-void main() {
+import 'package:weatherapp/services/weatherbloc.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SharedPrefService.init();
   runApp(const MyApp());
 }
 
@@ -17,7 +22,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const WeatherScreen(),
+      home: BlocProvider(
+        create: (context) => WeatherBloc(),
+        child: const HomePage(),
+      ),
     );
   }
 }

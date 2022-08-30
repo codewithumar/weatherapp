@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weatherapp/constants.dart';
 
-class ListCard extends StatelessWidget {
-  const ListCard({
+class AQIListCard extends StatelessWidget {
+  const AQIListCard({
     Key? key,
-    required this.title1,
-    required this.title2,
-    required this.title3,
-    required this.title4,
+    required this.text1,
+    required this.text2,
+    required this.text3,
+    required this.text4,
   }) : super(key: key);
 
-  final String title1;
-  final String title2;
-  final String title3;
-  final String title4;
+  final String text1;
+  final String text2;
+  final String text3;
+  final String text4;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class ListCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              title1,
+              text1,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
@@ -37,10 +38,10 @@ class ListCard extends StatelessWidget {
               const Image(
                 height: 21,
                 width: 19,
-                image: AssetImage("lib/images/AQI.png"),
+                image: AssetImage(aqiicon),
               ),
               Text(
-                title3,
+                text3,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.cairo(
                     textStyle: const TextStyle(
@@ -56,7 +57,7 @@ class ListCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              title2,
+              text2,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
@@ -66,7 +67,7 @@ class ListCard extends StatelessWidget {
               height: 5,
             ),
             Text(
-              title4,
+              text4,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Colors.white,
