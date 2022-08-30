@@ -3,8 +3,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:weatherapp/constants.dart';
 
 import 'package:weatherapp/models/weather_api.dart';
@@ -12,7 +11,6 @@ import 'package:weatherapp/screens/weatherscreen.dart';
 import 'package:weatherapp/services/getweather.dart';
 import 'package:weatherapp/services/locationservice.dart';
 import 'package:weatherapp/services/sharedprefservice.dart';
-import 'package:weatherapp/services/weatherbloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

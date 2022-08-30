@@ -36,13 +36,13 @@ class _SevenDayForcatScreenState extends State<SevenDayForcatScreen> {
             date: convertmillisectodate(widget.hourly.hourly[0].dt!).toString(),
             day: "Today",
             iconfromapi: widget.hourly.hourly[0].weather![0].main.toString(),
-            temp: "${widget.hourly.hourly[0].main!.temp!.round().toString()} C",
+            temp: "${widget.hourly.hourly[0].main!.temp!.round().toString()}°C",
           ),
           SevenDayCard(
             date: convertmillisectodate(widget.hourly.hourly[7].dt!).toString(),
             day: "Tomorrow",
             iconfromapi: widget.hourly.hourly[7].weather![0].main.toString(),
-            temp: "${widget.hourly.hourly[1].main!.temp!.round().toString()} C",
+            temp: "${widget.hourly.hourly[7].main!.temp!.round().toString()}°C",
           ),
           SevenDayCard(
             date:
@@ -50,7 +50,7 @@ class _SevenDayForcatScreenState extends State<SevenDayForcatScreen> {
             day: convertmillisectoday(widget.hourly.hourly[14].dt!).toString(),
             iconfromapi: widget.hourly.hourly[14].weather![0].main.toString(),
             temp:
-                "${widget.hourly.hourly[14].main!.temp!.round().toString()} C",
+                "${widget.hourly.hourly[14].main!.temp!.round().toString()}°C",
           ),
           SevenDayCard(
             date:
@@ -58,7 +58,7 @@ class _SevenDayForcatScreenState extends State<SevenDayForcatScreen> {
             day: convertmillisectoday(widget.hourly.hourly[21].dt!).toString(),
             iconfromapi: widget.hourly.hourly[21].weather![0].main.toString(),
             temp:
-                "${widget.hourly.hourly[21].main!.temp!.round().toString()} C",
+                "${widget.hourly.hourly[21].main!.temp!.round().toString()}°C",
           ),
           SevenDayCard(
             date:
@@ -66,7 +66,7 @@ class _SevenDayForcatScreenState extends State<SevenDayForcatScreen> {
             day: convertmillisectoday(widget.hourly.hourly[35].dt!).toString(),
             iconfromapi: widget.hourly.hourly[35].weather![0].main.toString(),
             temp:
-                "${widget.hourly.hourly[35].main!.temp!.round().toString()} C",
+                "${widget.hourly.hourly[35].main!.temp!.round().toString()}°C",
           ),
         ]),
       ),
