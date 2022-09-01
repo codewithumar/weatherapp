@@ -72,8 +72,6 @@ class DailyForecast extends StatelessWidget {
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.10,
-        ),
-        SizedBox(
           width: MediaQuery.of(context).size.width * 0.06,
         ),
       ],

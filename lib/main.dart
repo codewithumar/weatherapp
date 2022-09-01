@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:weatherapp/screens/homepage.dart';
 import 'package:weatherapp/services/sharedprefservice.dart';
+import 'package:weatherapp/screens/homepage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

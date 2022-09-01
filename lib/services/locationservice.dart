@@ -15,10 +15,7 @@ Future<void> getlocation() async {
 
   serviceEnabled = await location.serviceEnabled();
   if (!serviceEnabled) {
-    serviceEnabled = await location.requestService();
-    if (!serviceEnabled) {
-      return;
-    }
+    return;
   }
 
   permissionGranted = await location.hasPermission();
@@ -26,6 +23,7 @@ Future<void> getlocation() async {
     permissionGranted = await location.requestPermission();
     if (permissionGranted != PermissionStatus.granted) {
       Fluttertoast.showToast(msg: "Please enable Location from setting");
+      return;
     }
   }
 
@@ -36,9 +34,10 @@ Future<void> getlocation() async {
       Fluttertoast.showToast(msg: "Permission denied");
     }
   }
-  // Fluttertoast.showToast(msg: locationData!.latitude.toString());
   SharedPrefService.setlattosharedpref(locationData!.latitude.toString());
   SharedPrefService.setlongitosharedpref(locationData.longitude.toString());
+  SharedPrefService.setcitytosharedpref('');
+  // Fluttertoast.showToast(msg: locationData!.latitude.toString());
 
   log("Latitude in shared pref ${SharedPrefService.getlat()!}");
   log("Longitude in shared pref ${SharedPrefService.getlongi()!}");

@@ -5,8 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:weatherapp/models/weather_api.dart';
 import 'package:weatherapp/widgets/sevendaycard.dart';
 
-class SevenDayForcatScreen extends StatefulWidget {
-  SevenDayForcatScreen(
+class FiveDayForcatScreen extends StatefulWidget {
+  FiveDayForcatScreen(
       {Key? key,
       required this.aqi,
       required this.hourly,
@@ -17,20 +17,20 @@ class SevenDayForcatScreen extends StatefulWidget {
   ForecastHourly hourly;
 
   @override
-  State<SevenDayForcatScreen> createState() => _SevenDayForcatScreenState();
+  State<FiveDayForcatScreen> createState() => _FiveDayForcatScreenState();
 }
 
-class _SevenDayForcatScreenState extends State<SevenDayForcatScreen> {
+class _FiveDayForcatScreenState extends State<FiveDayForcatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(248, 27, 116, 199),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(248, 27, 116, 199),
-        title: const Text('Seven Day Forcast'),
+        title: const Text('5-Day Forecast'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.fromLTRB(7, 40, 5, 0),
         child: Row(children: [
           SevenDayCard(
             date: convertmillisectodate(widget.hourly.hourly[0].dt!).toString(),
@@ -38,11 +38,19 @@ class _SevenDayForcatScreenState extends State<SevenDayForcatScreen> {
             iconfromapi: widget.hourly.hourly[0].weather![0].main.toString(),
             temp: "${widget.hourly.hourly[0].main!.temp!.round().toString()}°C",
           ),
+          const SizedBox(
+            width: 10,
+            height: 10,
+          ),
           SevenDayCard(
             date: convertmillisectodate(widget.hourly.hourly[7].dt!).toString(),
             day: "Tomorrow",
             iconfromapi: widget.hourly.hourly[7].weather![0].main.toString(),
             temp: "${widget.hourly.hourly[7].main!.temp!.round().toString()}°C",
+          ),
+          const SizedBox(
+            width: 10,
+            height: 10,
           ),
           SevenDayCard(
             date:
@@ -52,6 +60,10 @@ class _SevenDayForcatScreenState extends State<SevenDayForcatScreen> {
             temp:
                 "${widget.hourly.hourly[14].main!.temp!.round().toString()}°C",
           ),
+          const SizedBox(
+            width: 10,
+            height: 10,
+          ),
           SevenDayCard(
             date:
                 convertmillisectodate(widget.hourly.hourly[21].dt!).toString(),
@@ -59,6 +71,10 @@ class _SevenDayForcatScreenState extends State<SevenDayForcatScreen> {
             iconfromapi: widget.hourly.hourly[21].weather![0].main.toString(),
             temp:
                 "${widget.hourly.hourly[21].main!.temp!.round().toString()}°C",
+          ),
+          const SizedBox(
+            width: 10,
+            height: 10,
           ),
           SevenDayCard(
             date:

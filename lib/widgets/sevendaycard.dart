@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:weatherapp/constants.dart';
+import 'package:weatherapp/utils/constants.dart';
 
 class SevenDayCard extends StatelessWidget {
   SevenDayCard(
@@ -29,7 +29,7 @@ class SevenDayCard extends StatelessWidget {
     }
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.16,
-      width: MediaQuery.of(context).size.width * 0.16,
+      width: MediaQuery.of(context).size.width * 0.17,
       child: Column(
         children: [
           Text(

@@ -4,9 +4,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-import 'package:weatherapp/constants.dart';
+import 'package:weatherapp/utils/constants.dart';
 
 import 'package:weatherapp/models/weather_api.dart';
+
 import 'package:weatherapp/screens/weatherscreen.dart';
 import 'package:weatherapp/services/getweather.dart';
 import 'package:weatherapp/services/locationservice.dart';
@@ -22,13 +23,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String? latitude;
   String? longitude;
+  String? city;
   @override
   void initState() {
     super.initState();
-    getlocation();
     log("Init Called");
+    getlocation();
     latitude = SharedPrefService.getlat().toString();
     longitude = SharedPrefService.getlongi().toString();
+    city = SharedPrefService.getcity().toString();
     log("latitude in init  ${latitude.toString()}");
     log("longitude in init  ${longitude.toString()}");
   }
@@ -36,12 +39,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List>(
-      future: getweather(latitude, longitude),
+      future: getweather(latitude!, longitude!, city!),
       builder: ((BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasError) {
           //log(snapshot.toString());
           return const Scaffold(
-              body: Center(child: Text("Error Please Reload App")));
+            body: Center(
+              child: Text("Error Please Reload App"),
+            ),
+          );
         } else if (snapshot.hasData) {
           WeatherAPIModel weather = snapshot.data[0];
           AQI aqi = snapshot.data[1];

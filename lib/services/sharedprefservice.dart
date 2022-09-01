@@ -15,11 +15,19 @@ class SharedPrefService {
     await prefs.setString("longitude", longitude);
   }
 
+  static Future setcitytosharedpref(String city) async {
+    await prefs.setString("city", city);
+  }
+
   static String? getlat() {
     return prefs.getString("lattitude");
   }
 
   static String? getlongi() {
     return prefs.getString("longitude");
+  }
+
+  static String? getcity() {
+    return prefs.getString("city");
   }
 }

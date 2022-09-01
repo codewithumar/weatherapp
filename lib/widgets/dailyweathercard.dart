@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:weatherapp/constants.dart';
+import 'package:weatherapp/utils/constants.dart';
 
 class DailyWeatherCard extends StatelessWidget {
   DailyWeatherCard({

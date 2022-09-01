@@ -42,6 +42,7 @@ dependencies:
   http: ^0.13.5
  
   intl: ^0.17.0
+  device_preview: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -67,7 +68,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - lib/images/
+     - lib/assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

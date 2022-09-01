@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weatherapp/constants.dart';
+import 'package:weatherapp/utils/constants.dart';
 
 class AQIListCard extends StatelessWidget {
   const AQIListCard({
@@ -71,7 +71,7 @@ class AQIListCard extends StatelessWidget {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Colors.white,
-                fontSize: 24,
+                fontSize: 20,
               ),
             ),
           ],
@@ -81,7 +81,7 @@ class AQIListCard extends StatelessWidget {
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.06,
-        ),
+        )
       ],
     );
   }

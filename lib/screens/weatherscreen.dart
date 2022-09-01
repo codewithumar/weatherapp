@@ -1,12 +1,15 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weatherapp/constants.dart';
+import 'package:weatherapp/screens/homepage.dart';
+import 'package:weatherapp/services/sharedprefservice.dart';
+import 'package:weatherapp/utils/constants.dart';
 
 import 'package:weatherapp/models/weather_api.dart';
-import 'package:weatherapp/screens/sevendayforcastscreen.dart';
+import 'package:weatherapp/screens/fivedayforcastscreen.dart';
 import 'package:weatherapp/widgets/dailyforcast.dart';
 import 'package:weatherapp/widgets/dailyweathercard.dart';
 import 'package:intl/intl.dart';
@@ -30,23 +33,27 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
-  String backgroundimage = "lib/images/clear.png";
+  TextEditingController searchcontroller = TextEditingController();
+  String backgroundimage = clearbackground;
 
   late final backgroundfromapi = widget.weather.weather![0].main;
-
+  String city = "";
   @override
   Widget build(BuildContext context) {
     if (backgroundfromapi == "Clouds") {
       backgroundimage = cloudsbackground;
-    } else if (backgroundfromapi == "Thunderstorm") {
+    } else if (backgroundfromapi == "Thunderstorm" ||
+        backgroundfromapi == "Smoke") {
       backgroundimage = thenderstormbackground;
     } else if (backgroundfromapi == "Rain") {
       backgroundimage = rainybackground;
     } else if (backgroundfromapi == "Clear") {
       backgroundimage = clearbackground;
     }
-    //  log(widget.hourly.hourly[2].main!.tempMin.toString());
+    // log("aqi from db  ${widget.aqi.main![0].aqi.toString() ?? "4"} ");
     return Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(backgroundimage),
@@ -65,29 +72,47 @@ class _WeatherScreenState extends State<WeatherScreen> {
               ),
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.06,
-                child: Text(
-                  widget.weather.name.toString(),
-                  style: GoogleFonts.cairo(fontSize: 24, color: Colors.white),
+                child: Center(
+                  child: Text(
+                    widget.weather.name.toString(),
+                    style: GoogleFonts.cairo(fontSize: 24, color: Colors.white),
+                  ),
                 ),
               ),
               Positioned(
-                width: MediaQuery.of(context).size.width - 30,
-                height: 36,
+                height: MediaQuery.of(context).size.height * 0.05,
+                width: MediaQuery.of(context).size.width,
                 top: MediaQuery.of(context).size.height * 0.12,
-                left: MediaQuery.of(context).size.width * 0.04,
-                child: TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: const Color.fromRGBO(231, 230, 230, 1),
-                    contentPadding: const EdgeInsets.only(
-                        left: 14.0, bottom: 8.0, top: 8.0),
-                    prefixIconColor: const Color.fromRGBO(69, 65, 65, 1),
-                    hintText: "Search Cities",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(40.0),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Center(
+                    child: TextField(
+                      controller: searchcontroller,
+                      onSubmitted: (value) async {
+                        log(searchcontroller.text);
+                        city = searchcontroller.text;
+                        await SharedPrefService.setcitytosharedpref(city);
+                        // ignore: use_build_context_synchronously
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()),
+                            (route) => false);
+                        searchcontroller.text = "";
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: const Color.fromRGBO(231, 230, 230, 1),
+                        contentPadding: const EdgeInsets.only(
+                            left: 14.0, bottom: 8.0, top: 8.0),
+                        prefixIconColor: const Color.fromRGBO(69, 65, 65, 1),
+                        hintText: "Search Cities",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                        ),
+                        prefixIcon: const Image(image: AssetImage(search)),
+                      ),
                     ),
-                    prefixIcon:
-                        const Image(image: AssetImage("lib/images/search.png")),
                   ),
                 ),
               ),
@@ -113,11 +138,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
               Positioned(
                 left: MediaQuery.of(context).size.width * 0.46,
                 top: MediaQuery.of(context).size.height * 0.40,
-                child: Text(
-                  widget.weather.weather![0].main.toString(),
-                  style: GoogleFonts.cairo(
-                    fontSize: 17,
-                    color: Colors.white,
+                child: Center(
+                  child: Text(
+                    widget.weather.weather![0].main.toString(),
+                    style: GoogleFonts.cairo(
+                      fontSize: 17,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -125,7 +152,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 left: MediaQuery.of(context).size.width * 0.427,
                 top: MediaQuery.of(context).size.height * 0.44,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(10),
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                     child: Container(
@@ -133,25 +160,31 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         color: Colors.white12,
                       ),
                       height: 25,
-                      width: 60,
-                      child: Row(
-                        children: [
-                          const ImageIcon(
-                            AssetImage(aqiicon),
-                            color: Colors.white,
-                            size: 23,
-                          ),
-                          Text(
-                            "AQI ",
-                            style: GoogleFonts.cairo(
-                                fontSize: 12, color: Colors.white),
-                          ),
-                          Text(
-                            widget.aqi.main![0].aqi.toString(),
-                            style: GoogleFonts.cairo(
-                                fontSize: 12, color: Colors.white),
-                          ),
-                        ],
+                      width: 70,
+                      child: Center(
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            const ImageIcon(
+                              AssetImage(aqiicon),
+                              color: Colors.white,
+                              size: 23,
+                            ),
+                            Text(
+                              "AQI ",
+                              style: GoogleFonts.cairo(
+                                  fontSize: 12, color: Colors.white),
+                            ),
+                            Text(
+                              "4",
+                              // widget.aqi.main![0].aqi.toString(),
+                              style: GoogleFonts.cairo(
+                                  fontSize: 12, color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -289,7 +322,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SevenDayForcatScreen(
+                          builder: (context) => FiveDayForcatScreen(
                             aqi: widget.aqi,
                             weather: widget.weather,
                             hourly: widget.hourly,
@@ -321,9 +354,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       DailyForecast(
                           title1: 'Real Feel',
                           title2: 'Humadity',
-                          title3: widget.weather.main!.feelsLike!
-                              .round()
-                              .toString(),
+                          title3:
+                              "${widget.weather.main!.feelsLike!.round().toString()}°C",
                           title4:
                               "${widget.weather.main!.humidity.toString()}%"),
                       DailyForecast(
@@ -352,11 +384,11 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Column(
-                    children: [
+                    children: const [
                       AQIListCard(
                           text1: "Air Quality Index",
                           text2: '',
-                          text3: widget.aqi.main![0].aqi.toString(),
+                          text3: '4',
                           text4: 'Full air quality forecasts')
                     ],
                   ),
